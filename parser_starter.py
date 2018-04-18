@@ -27,8 +27,3 @@ for file in files:
     out = '{}/{}'.format(dataSetFolder, file)
     createFolder(out)
     parseCSVFile(pathToFile, out, hRatio=hRatio, wRatio=wRatio)
-
-
-
-
-

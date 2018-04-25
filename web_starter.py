@@ -10,8 +10,11 @@ import numpy as np
 from flask import jsonify, request, url_for
 from keras.models import load_model
 from werkzeug.utils import secure_filename
+from flask_cors import CORS
+
 
 app = flask.Flask(__name__)
+CORS(app)
 ALLOWED_EXTENSIONS = {'png', 'jpg'}
 
 
@@ -22,6 +25,8 @@ def allowed_file(filename):
 
 @app.route('/upload', methods=['POST'])
 def uploadFile():
+    print(request.files)
+    print(request)
     if 'image' not in request.files:
         return 'no file'
     file = request.files['image']

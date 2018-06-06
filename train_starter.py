@@ -1,5 +1,5 @@
 from src.util.DataSetUtil import read_classes, read_train_sets
-from src.util.ModelsUtil import createCnnModel, createBigCnnModel, VGG_16
+from src.util.ModelsUtil import createCnnModel, createBigCnnModel, VGG_16, VGG_19
 from src.util.VisualisationUtil import createPlot
 from src.train.train import start
 import os
@@ -60,12 +60,9 @@ model, history, score = start(model=createBigCnnModel(input_shape, num_classes),
                               epochs=epochs,
                               callbacks=[csv_logger])
 
-with open('{}/model.json'.format(path_to_save), 'w') as json_file:
-    json_file.write(model.to_json())
-
-
 # Save model
 plot_model(model, to_file='{}/model.png'.format(path_to_save), show_shapes=True, show_layer_names=True)
+open('{}/model.json'.format(path_to_save), 'w').write(model.to_json())
 
 # Save model and weights
 model_path = os.path.join(path_to_save, 'trained_model.h5')

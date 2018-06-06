@@ -1,5 +1,5 @@
 from src.util.DataSetUtil import read_classes, read_train_sets
-from src.util.ModelsUtil import createCnnModel
+from src.util.ModelsUtil import createCnnModel, createBigCnnModel, VGG_16
 from src.util.VisualisationUtil import createPlot
 from src.train.train import start
 import os
@@ -7,6 +7,7 @@ import configparser
 import datetime
 import json
 from keras.utils import plot_model
+from keras.callbacks import CSVLogger
 
 
 def buildPathToSave():
@@ -48,12 +49,20 @@ print("Complete reading input data. Will Now print a snippet of it")
 print("Number of files in Training-set:\t\t{}".format(len(data.train.labels)))
 print("Number of files in Validation-set:\t{}".format(len(data.valid.labels)))
 
+# open('{}/log.csv'.format(path_to_save),'w').close()
+csv_logger = CSVLogger('{}/log.csv'.format(path_to_save), append=True, separator=';')
+
 # Train neural network
 input_shape = (img_size, img_size, num_channels)
-model, history, score = start(model=createCnnModel(input_shape, num_classes),
+model, history, score = start(model=createBigCnnModel(input_shape, num_classes),
                               data=data,
                               batch_size=batch_size,
-                              epochs=epochs)
+                              epochs=epochs,
+                              callbacks=[csv_logger])
+
+with open('{}/model.json'.format(path_to_save), 'w') as json_file:
+    json_file.write(model.to_json())
+
 
 # Save model
 plot_model(model, to_file='{}/model.png'.format(path_to_save), show_shapes=True, show_layer_names=True)
@@ -67,3 +76,5 @@ print('Saved trained model at %s ' % model_path)
 createPlot('model accuracy', 'accuracy', path_to_save, history.history['val_acc'], history.history['acc'])
 createPlot('model loss', 'loss', path_to_save, history.history['val_acc'], history.history['loss'])
 print('Saved plots')
+
+

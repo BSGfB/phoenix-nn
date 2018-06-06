@@ -1,7 +1,7 @@
 import keras
 
 
-def start(model, data, batch_size, epochs):
+def start(model, data, batch_size, epochs, callbacks):
     model.compile(loss=keras.losses.categorical_crossentropy,
                   optimizer=keras.optimizers.Adadelta(),
                   metrics=['accuracy'])
@@ -9,7 +9,8 @@ def start(model, data, batch_size, epochs):
                         batch_size=batch_size,
                         epochs=epochs,
                         verbose=1,
-                        validation_data=(data.valid.images, data.valid.labels))
+                        validation_data=(data.valid.images, data.valid.labels),
+                        callbacks=callbacks)
 
     score = model.evaluate(data.valid.images, data.valid.labels, verbose=0)
     print('Test loss:', score[0])

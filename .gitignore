@@ -67,4 +67,4 @@ venv.bak/
 
 
 dataset/**
-tmp/**
+saved_models/**

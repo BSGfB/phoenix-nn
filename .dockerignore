@@ -1,0 +1,6 @@
+.idea/
+dataset/
+src/
+train_starter.py
+parser_starter.py
+Makefile

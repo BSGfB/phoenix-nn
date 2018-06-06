@@ -7,6 +7,6 @@ def createPlot(title, label, save_dir, x, y):
     plt.title(title)
     plt.xlabel('epoch')
     plt.ylabel(label)
-    plt.legend(['train', 'test'], loc='upper left')
+    plt.legend(['test', 'train'], loc='upper left')
     plt.savefig('{}/{}.png'.format(save_dir, title.replace(' ', '_')))
     plt.clf()

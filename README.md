@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Libs
 ```
-sudo pip3 install scikit-learn ConfigParser matplotlib pydot graphviz h5py Flask flask-cors
+sudo pip3 install scikit-learn ConfigParser matplotlib pydot graphviz h5py Flask flask-cors opencv-python
 sudo apt-get install python3-graphviz python3-pydot python3-tk
 ```
 

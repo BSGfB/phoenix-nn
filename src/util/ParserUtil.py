@@ -41,8 +41,11 @@ def smartRectSelector(image, x1, x2, y1, y2, wRatio, hRatio):
 def parse(dataset, location, wRatio, hRatio):
     print('file is {} and headers are {}'.format(location, next(dataset)))
     next(dataset)
-
-    for idx, row in enumerate(dataset):
+    
+    vals = list(enumerate(dataset))   
+    for idx, row in vals:
+        print('{}/{}'.format(idx, len(vals)), sep=' ', end='\r', flush=True)
+        
         url, name, x1, x2, y1, y2 = row
         try:
             image = iu.loadImage(url)
@@ -54,5 +57,5 @@ def parse(dataset, location, wRatio, hRatio):
                                       wRatio,
                                       hRatio)
             cv2.imwrite(location + '/{}.jpg'.format(idx), cv2.resize(image, (400, 400)))
-        except urle.HTTPError:
+        except:
             print('error: ', idx, ' row: ', row)

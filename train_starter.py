@@ -1,5 +1,5 @@
 from src.util.DataSetUtil import read_classes, read_train_sets
-from src.util.ModelsUtil import createCnnModel, createBigCnnModel, VGG_16, VGG_19
+from src.util.ModelsUtil import createCnnModel, createBigCnnModel, VGG_11, VGG_16, VGG_19
 from src.util.VisualisationUtil import createPlot
 from src.train.train import start
 import os
@@ -54,7 +54,7 @@ csv_logger = CSVLogger('{}/log.csv'.format(path_to_save), append=True, separator
 
 # Train neural network
 input_shape = (img_size, img_size, num_channels)
-model, history, score = start(model=createBigCnnModel(input_shape, num_classes),
+model, history, score = start(model=VGG_11(input_shape, num_classes),
                               data=data,
                               batch_size=batch_size,
                               epochs=epochs,
